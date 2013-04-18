@@ -1,0 +1,69 @@
+﻿@charset "utf-8";
+
+
+
+.st_tree{ 
+	padding:10px;
+}
+
+.st_tree a{ 
+	color:#222; 
+	text-decoration:none; 
+}
+
+
+.st_tree a:hover{ 
+	color:#f33; 
+	text-decoration:underline;
+}
+
+
+.st_tree ul{ 
+	padding:0 0 0 18px; 
+	margin:0; 
+}
+
+
+.st_tree ul li{ 
+	font-size:20px; 
+	color:#222; 
+	line-height:30px; 
+	cursor:pointer;
+	list-style:none; 
+	background:url(../image/document.png); 
+	background-repeat:no-repeat; 
+	padding:0 0 3px 30px;
+}
+
+
+.st_tree ul li ul{}
+
+
+.st_tree ul li ul li{}
+
+
+.st_tree .folder{ 
+	list-style-image:url(../image/st_icon.png); 
+	background:url(../image/kde_folder.png); 
+	background-repeat:no-repeat; 
+	padding:0 0 0 30px; 
+}
+
+.st_tree .domain{
+	list-style-image:url(../image/st_icon.png); 
+	background:url(../image/st_folder.gif); 
+	background-repeat:no-repeat; 
+	padding:0 0 0 30px;
+}
+
+
+.st_tree .open{ 
+	list-style-image:url(../image/st_icon_open.png); 
+	background:url(../image/folder_open.png); 
+	background-repeat:no-repeat; 
+	padding:0 0 0 30px; 
+}
+
+.st_tree .hover{
+	background-color:#ffa;
+}
