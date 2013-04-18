@@ -97,7 +97,7 @@ if(!isset($_SESSION['userid'])){
         <table align='center'>
             <tr><td height='50'></td></tr>
             <tr>
-                <td>
+                <td width='33%'>
                     <a href='search.php?domainID=PSY'><img src="image/folder.png" class='img1'/><br/></a>
                     <a href='search.php?domainID=PSY'>Psychosocial<br/></a>
                     <?php
@@ -129,7 +129,7 @@ if(!isset($_SESSION['userid'])){
                     }
                     ?>
                 </td>
-                <td>
+                <td width='33%'>
                     <a href='search.php?domainID=DEM'><img src="image/folder.png" class='img1'/><br/></a>
                     <a href='search.php?domainID=DEM'>Demographic</a><br/>
                     <?php
@@ -161,7 +161,7 @@ if(!isset($_SESSION['userid'])){
                     }
                     ?>
                 </td>
-                <td>
+                <td width='33%'>
                     <a href='search.php?domainID=ENV'><img src="image/folder.png" class='img1'/><br/></a>
                     <a href='search.php?domainID=ENV'>Environmental</a><br/>
                     <?php
@@ -194,9 +194,9 @@ if(!isset($_SESSION['userid'])){
                     ?>
                 </td>
             </tr>
-            <tr><td height='50'></td></tr>
+            <tr><td height='50' ></td></tr>
             <tr>
-                <td>
+                <td width='33%'>
                     <a href='search.php?domainID=MED'><img src="image/folder.png" class='img1'/><br/></a>
                     <a href='search.php?domainID=MED'>Medical</a><br/>
                     <?php
@@ -228,7 +228,7 @@ if(!isset($_SESSION['userid'])){
                     }
                     ?>
                 </td>
-                <td>
+                <td width='33%'>
                     <a href='search.php?domainID=CHE'><img src="image/folder.png" class='img1'/><br/></a>
                     <a href='search.php?domainID=CHE'>Chemical</a><br/>
                     <?php
@@ -261,7 +261,7 @@ if(!isset($_SESSION['userid'])){
                     sqlsrv_close($conn);
                     ?>
                 </td>
-                <td>
+                <td width='33%'>
                     <a href='search.php?domainID=HEA'><img src="image/folder.png" class='img1'/><br/></a>
                     <a href='search.php?domainID=HEA'>Health/Lifestyle</a><br/>
                     <?php
