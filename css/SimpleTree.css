@@ -24,10 +24,21 @@
 }
 
 
-.st_tree ul li{ 
+/*.st_tree ul li{ 
 	font-size:20px; 
 	color:#222; 
 	line-height:30px; 
+	cursor:pointer;
+	list-style:none; 
+	background:url(../image/document.png); 
+	background-repeat:no-repeat; 
+	padding:0 0 3px 30px;
+}*/
+
+.st_tree li{ 
+	font-size:20px; 
+	color:#222; 
+	line-height:25px; 
 	cursor:pointer;
 	list-style:none; 
 	background:url(../image/document.png); 
@@ -42,14 +53,16 @@
 .st_tree ul li ul li{}
 
 
-.st_tree .folder{ 
+.st_tree .folder{
+	font-size: 20px;
 	list-style-image:url(../image/st_icon.png); 
 	background:url(../image/kde_folder.png); 
 	background-repeat:no-repeat; 
-	padding:0 0 0 30px; 
+	padding:0 0 0 30px;
 }
 
 .st_tree .domain{
+	font-size: 20px;
 	list-style-image:url(../image/st_icon.png); 
 	background:url(../image/st_folder.gif); 
 	background-repeat:no-repeat; 

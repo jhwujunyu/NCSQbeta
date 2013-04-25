@@ -1,6 +1,7 @@
 <?php
+$module = $_GET['module'];
 header("Content-type: application/vnd.ms-word");
-header("Content-Disposition: attachment;Filename=document_name.doc");
+header("Content-Disposition: attachment;Filename=$module.doc");
 
 echo "<html>";
 echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">";
@@ -18,9 +19,9 @@ echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-125
 </head>
 <?php
 echo "<body>";
-$module = $_GET['module'];
 
-        echo "<table align='center' width='600'><tr><td class='input'>";
+
+        echo "<table align='center' width='100%'><tr><td class='input'>";
         include "conn.php";
         $sql = "select domain from domain where domainID in (select domainID from subdomain where subdomainID in (select subdomainID from module where module ='$module'))";
         $rst = sqlsrv_query($conn, $sql);
@@ -37,16 +38,14 @@ $module = $_GET['module'];
         $row = sqlsrv_fetch_array($rst);
         
         echo "<p>";
-        echo "<b>Domain</b>: ".$domain."<br/>";
-        echo "<b>Sub-Domain</b>: ".$subdomain."<br/>";
-        echo "<b>Module</b>: ".$module."<br/>";
+       
         
-        echo "<table align='center'><tr><td class='input'>";
+        echo "<table align='center' ><tr><td class='input'>";
      
         echo "<center><font size='+2'><b>$module</b></font></center>";
         $sql = "select * from question where moduleID in (select moduleID from module where module ='$module') order by orderID";
         $questionrst = sqlsrv_query($conn, $sql);
-        //$question = "";
+        $hflag=FALSE;
         while($questionrow = sqlsrv_fetch_array($questionrst)){
             //echo "<tr>";
             
@@ -54,7 +53,30 @@ $module = $_GET['module'];
              $ressql = "select * from response where questionID='$qid' ";
              $resrst = sqlsrv_query($conn, $ressql);
              $resrstd =sqlsrv_query($conn, $ressql);
-            if($questionrow['qtype']=='m' || $questionrow['qtype']=='ms' || $questionrow['qtype']=='me'){
+            if($questionrow['qtype']=='m' || $questionrow['qtype']=='ms' || $questionrow['qtype']=='me'|| $questionrow['qtype']=='mh'){
+                
+                 if($questionrow['qtype']=='mh'){
+                    $hflag=TRUE;
+                    echo "</p>";
+                    echo "<p>";
+                   
+                    echo "<table  border='1' style='border-collapse:collapse;' ><font size='-3'><tr><th colspan='2' rowspan='3'  ></th><th colspan='7' >Negative/Bad or Positive/Good Impact on your life?</th></tr>
+                                            <tr><th colspan='3'>Negative/Bad</th> <th>No Impact</th> <th colspan='3'>Positive/Good</th></tr>
+                                            <tr>
+                                                <td >Extremely Negative</td>
+                                                <td >Moderately Negative</td>
+                                                <td >Somewhat Negative</td>
+                                                <td >No Impact</td>
+                                                <td >Somewhat Positive</td>
+                                                <td >Moderately Positive</td>
+                                                <td >Extremely Positive</td>
+                                             </tr></font>";
+                                                                     
+                            
+                }
+                
+                
+                
                 
                 if($questionrow['qtype']=='ms'){
                     echo "</p>";
@@ -68,23 +90,39 @@ $module = $_GET['module'];
                     echo "</tr>";
                 }
                 $questionline=$questionrow['question'];
-                 $k =58  - strlen($questionline);
-                 if($k < 0){
-                    $k += 55;
-                 }
+                 $k =60  - strlen($questionline)%60;
+                 
                  $i = 0;
+                 if(!$hflag){
                  while($i<$k){
                         $questionline = $questionline.'.';
                         $i = $i+1;
-                   }
+                   }}
                     echo "<tr><td width='60%'><font size='-3'>$questionline</font></td>";
-                 while($resrow = sqlsrv_fetch_array($resrstd)){
+                    
+                     if($hflag){
+                       
+                            echo "<td >__Yes> <br/>__No</td>";
+                            $i=0;
+                                while($i<7){
+                                    echo "<td><center>__</center></td>";
+                                    $i++;
+                                }
+                                echo "</tr>";
+                  }
+                    
+                  else{
+                       while($resrow = sqlsrv_fetch_array($resrstd)){
                        
                         echo "<td width='5%'><font size='-3'>".$resrow['rid']."</font></td>";
                    }
                    echo "</tr>";
+                  }  
+                    
+                
                    if($questionrow['qtype']=='me'){
                     echo "</table>";
+                    $hflag=FALSE;
                    }
                  //echo "<font size='-1'>$questionline</font><br/>";     
                }
