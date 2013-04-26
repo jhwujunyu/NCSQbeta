@@ -131,13 +131,13 @@ if(!isset($_SESSION['userid'])){
                         $questionline = $questionline.'.';
                         $i = $i+1;
                    }}
-                    if(!$nomultiflag){
+                    /*if(!$nomultiflag){
                                   $questionline = $questionline."<br/> Source: ".$questionrow['qsource']."<br/>";
                                   $questionline = $questionline. "Proprietary: ".$questionrow['proprietary']."<br/>";
                                   $questionline = $questionline."Scale: ".$questionrow['qscale']."<br/>"; 
                                   $questionline = $questionline."Core: ".$questionrow['core']."<br/>";
                                   $questionline = $questionline."Vanguard: ".$questionrow['vanguard']."<br/><br/>";      
-                            }
+                            }*/
                    
                     echo "<tr><td ><font size='-1'>$questionline</font></td>";
                     
@@ -217,6 +217,7 @@ if(!isset($_SESSION['userid'])){
                          
                           $rid = $resrow['rid'];
                           $r = $resrow['response'];
+                          $skip = $resrow['skippattern'];
                            if($rid != ''){
                                     
                                     $k = 70 - $twdeduct - strlen($rid) - strlen($r);
@@ -227,8 +228,13 @@ if(!isset($_SESSION['userid'])){
                                     }
                                     $r = $r.$rid;
                            }
+                           if($skip != ''){
+                           $skip = str_replace("(",'',$skip);
+                           $skip = str_replace(")",'',$skip);
+                           $skip = '('.$skip.')';
+                           }
                           
-                           echo $r."<br>";
+                           echo $r.$skip."<br>";
                       }
                 
                 if($questionrow['qtype']=='te'){

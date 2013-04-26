@@ -163,6 +163,7 @@ echo "<body>";
                          
                           $rid = $resrow['rid'];
                           $r = $resrow['response'];
+                          $skip = $resrow['skippattern'];
                            if($rid != ''){
                                     
                                     $k = 70 - $twdeduct - strlen($rid) - strlen($r);
@@ -174,7 +175,12 @@ echo "<body>";
                                     $r = $r.$rid;
                            }
                           
-                           echo $r."<br>";
+                          if($skip != ''){
+                           $skip = str_replace("(",'',$skip);
+                           $skip = str_replace(")",'',$skip);
+                           $skip = '('.$skip.')';
+                           }
+                           echo $r.$skip."<br>";
                       }
                 
                 if($questionrow['qtype']=='te'){
