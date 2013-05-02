@@ -1,7 +1,27 @@
 <?php
-$module = $_GET['module'];
+$moduleID = $_GET['moduleID'];
+include "conn.php";
+
+$sql = "select domain from domain where domainID in (select domainID from subdomain where subdomainID in (select subdomainID from module where moduleID ='$moduleID'))";
+$rst = sqlsrv_query($conn, $sql);
+$row = sqlsrv_fetch_array($rst);
+$domain=$row[0];
+
+$sql = "select subdomain from subdomain where subdomainID in (select subdomainID from module where moduleID ='$moduleID')";
+$rst = sqlsrv_query($conn, $sql);
+$row = sqlsrv_fetch_array($rst);
+$subdomain=$row[0];
+
+
+$sql = "select * from module where moduleID='$moduleID'";
+$rst = sqlsrv_query($conn, $sql);
+$row = sqlsrv_fetch_array($rst);
+$module=$row['module'];
+
+
+
 header("Content-type: application/vnd.ms-word");
-header("Content-Disposition: attachment;Filename=$module.doc");
+header("Content-Disposition: attachment;Filename=$moduleID.doc");
 
 echo "<html>";
 echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">";
@@ -22,28 +42,27 @@ echo "<body>";
 
 
         echo "<table align='center' width='100%'><tr><td class='input'>";
-        include "conn.php";
-        $sql = "select domain from domain where domainID in (select domainID from subdomain where subdomainID in (select subdomainID from module where module ='$module'))";
-        $rst = sqlsrv_query($conn, $sql);
-        $row = sqlsrv_fetch_array($rst);
-        $domain=$row[0];
-        
-        $sql = "select subdomain from subdomain where subdomainID in (select subdomainID from module where module ='$module')";
-        $rst = sqlsrv_query($conn, $sql);
-        $row = sqlsrv_fetch_array($rst);
-        $subdomain=$row[0];
-      
-        $sql = "select * from module where module='$module'";
-        $rst = sqlsrv_query($conn, $sql);
-        $row = sqlsrv_fetch_array($rst);
-        
-        echo "<p>";
        
+        echo "<p>";
+        
         
         echo "<table align='center' ><tr><td class='input'>";
      
         echo "<center><font size='+2'><b>$module</b></font></center>";
-        $sql = "select * from question where moduleID in (select moduleID from module where module ='$module') order by orderID";
+        
+        echo "<b>Domain</b>: ".$domain."<br/>";
+        echo "<b>Sub-Domain</b>: ".$subdomain."<br/>";
+        echo "<b>Module</b>: ".$module."<br/>";
+        /*if($row['multisource']==0){
+           $nomultiflag=1;
+        echo "<b>Source</b>: ".$row['source']."<br/>";
+        echo "<b>Proprietary</b>: ".$row['proprietary']."<br/>";
+        echo "<b>Scale</b>: ".$row['scale']."<br/>"; 
+        echo "<b>Core</b>: ".$row['core']."<br/>";
+        echo "<b>Vanguard</b>: ".$row['vanguard']."<br/>";
+        }*/
+        
+        $sql = "select * from question where moduleID='$moduleID' order by orderID";
         $questionrst = sqlsrv_query($conn, $sql);
         $hflag=FALSE;
         while($questionrow = sqlsrv_fetch_array($questionrst)){
@@ -132,6 +151,7 @@ echo "<body>";
                if($questionrow['qtype']=='ts'){
                     echo "<table border='1' style='border-collapse:collapse;' align='center'><tr><td valign='top'>";
                     $twdeduct=50;
+                    $nomultiflag = true;
                }  
                
                if($questionrow['qtype']=='t'){
@@ -156,7 +176,13 @@ echo "<body>";
                             if(isset($questionrow['instruction'])){
                                 echo $questionrow['instruction']."<br/>";
                             }
-                        
+                       /* if(!$nomultiflag){
+                                  echo "Source: ".$questionrow['qsource']."<br/>";
+                                  echo "Proprietary: ".$questionrow['proprietary']."<br/>";
+                                  echo "Scale: ".$questionrow['qscale']."<br/>"; 
+                                  echo "Core: ".$questionrow['core']."<br/>";
+                                  echo "Vanguard: ".$questionrow['vanguard']."<br/><br/>";      
+                            }*/
                       }
                        
                       while($resrow = sqlsrv_fetch_array($resrst)){
@@ -166,7 +192,7 @@ echo "<body>";
                           $skip = $resrow['skippattern'];
                            if($rid != ''){
                                     
-                                    $k = 70 - $twdeduct - strlen($rid) - strlen($r);
+                                    $k = 75 - $twdeduct - strlen($rid) - strlen($r)%75;
                                     $i = 0;
                                     while($i<$k){
                                              $r = $r.'.';
@@ -184,7 +210,7 @@ echo "<body>";
                       }
                 
                 if($questionrow['qtype']=='te'){
-                   
+                   $nomultiflag = false;
                         echo "</td></tr></table>";
                     } 
                     
@@ -195,5 +221,7 @@ echo "<body>";
         }
         echo "</td></tr></table>";
         sqlsrv_close($conn);
-echo "</html>";
+        
+        
+echo "</body></html>";
 ?>

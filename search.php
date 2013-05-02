@@ -142,20 +142,21 @@ $userid = $_SESSION['userid'];
                 echo "<ul show='true'>";
                 while($modulerow=sqlsrv_fetch_array($modulerst)){
                     $module = $modulerow['module'];
+                    $moduleID=$modulerow['moduleID'];
                     echo "<div class='productPriceWrapRight'>";
-                    echo "<li><a id='$module' href='module.php?module=$module' ref='x'>$module</a>
-                        <a href='document/$module.docx'><img src='image/download.png' width=25px ></a>";
+                    echo "<li><a id='$moduleID' href='module.php?moduleID=$moduleID' ref='x'>$module</a>
+                        <a href='export.php?moduleID=$moduleID'><img src='image/download.png' width=25px ></a>";
                
                     
-                    echo "<a href='functions.php?action=addToBasket&productID=".$module."' onClick='return false;'>";
+                    echo "<a href='functions.php?action=addToBasket&productID=".$moduleID."' onClick='return false;'>";
                          
-                        $basketquery="SELECT * FROM basket WHERE username = '$userid' and itemid='$module'";
+                        $basketquery="SELECT * FROM basket WHERE username = '$userid' and itemid='".$moduleID."'";
                         $result = sqlsrv_query($conn,$basketquery) or die(sqlsrv_errors());
                         if(sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-                            {   echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$module."' style='display:none' >";}
+                            {   echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$moduleID."' style='display:none' >";}
                         else 
                             {
-                               echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$module."' >";
+                               echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$moduleID."' >";
                             }
                    
                     echo "</a>
@@ -209,18 +210,19 @@ $userid = $_SESSION['userid'];
                     echo "<ul show='true'>";
                     while($modulerow=sqlsrv_fetch_array($modulerst)){
                         $module = $modulerow['module'];
+                        $moduleID=$modulerow['moduleID'];
                         echo "<div class='productPriceWrapRight'>";
-                        echo "<li><a id='$module' href='module.php?module=$module' ref='x'>$module</a>
-                            <a href='document/$module.docx'><img src='image/download.png' width=25px ></a>";
-                        echo "<a href='functions.php?action=addToBasket&productID=".$module."' onClick='return false;'>";
+                        echo "<li><a id=\"$moduleID\" href=\"module.php?module=$moduleID\" ref='x'>$module</a>
+                            <a href='export.php?moduleID=$moduleID'><img src='image/download.png' width=25px ></a>";
+                        echo "<a href=\"functions.php?action=addToBasket&productID=".$moduleID."\" onClick='return false;'>";
                         
-                        $basketquery="SELECT * FROM basket WHERE username = '$userid' and itemid='$module'";
+                        $basketquery="SELECT * FROM basket WHERE username = '$userid' and itemid='$moduleID'";
                         $result = sqlsrv_query($conn,$basketquery) or die(sqlsrv_errors());
                         if(sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-                            {   echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$module."' style='display:none' >";}
+                            {   echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$moduleID."' style='display:none' >";}
                         else 
                             {
-                               echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$module."' >";
+                               echo" <img src='image/plus.png' alt='Add To Basket' width='25' id='featuredProduct_".$moduleID."' >";
                             }
                        
                         echo "</a>

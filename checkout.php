@@ -34,30 +34,35 @@ echo "<body>";
     $basketresult = sqlsrv_query ($conn,$basketquery);
     while($basketrow = sqlsrv_fetch_array($basketresult)){
                  
-        $module=$basketrow['itemid'];
+        $moduleID=$basketrow['itemid'];
         echo "<table align='center' width='100%'><tr><td class='input'>";
         
-        $sql = "select domain from domain where domainID in (select domainID from subdomain where subdomainID in (select subdomainID from module where module ='$module'))";
+        $sql = "select domain from domain where domainID in (select domainID from subdomain where subdomainID in (select subdomainID from module where moduleID ='$moduleID'))";
         $rst = sqlsrv_query($conn, $sql);
         $row = sqlsrv_fetch_array($rst);
         $domain=$row[0];
         
-        $sql = "select subdomain from subdomain where subdomainID in (select subdomainID from module where module ='$module')";
+        $sql = "select subdomain from subdomain where subdomainID in (select subdomainID from module where moduleID ='$moduleID')";
         $rst = sqlsrv_query($conn, $sql);
         $row = sqlsrv_fetch_array($rst);
         $subdomain=$row[0];
       
-        $sql = "select * from module where module='$module'";
+        $sql = "select * from module where moduleID='$moduleID'";
         $rst = sqlsrv_query($conn, $sql);
         $row = sqlsrv_fetch_array($rst);
-        
+        $module= $row['module'];
         echo "<p>";
-       
+        
         
         echo "<table align='center' ><tr><td class='input'>";
      
+        echo "<b>Domain</b>: ".$domain."<br/>";
+        echo "<b>Sub-Domain</b>: ".$subdomain."<br/>";
+        echo "<b>Module</b>: ".$module."<br/>";
+     
+        
         echo "<center><font size='+2'><b>$module</b></font></center>";
-        $sql = "select * from question where moduleID in (select moduleID from module where module ='$module') order by orderID";
+        $sql = "select * from question where moduleID ='$moduleID' order by orderID";
         $questionrst = sqlsrv_query($conn, $sql);
         $hflag=FALSE;
         while($questionrow = sqlsrv_fetch_array($questionrst)){
@@ -146,6 +151,7 @@ echo "<body>";
                if($questionrow['qtype']=='ts'){
                     echo "<table border='1' style='border-collapse:collapse;' align='center'><tr><td valign='top'>";
                     $twdeduct=50;
+                    $nomultiflag = true;
                }  
                
                if($questionrow['qtype']=='t'){
@@ -170,7 +176,7 @@ echo "<body>";
                             if(isset($questionrow['instruction'])){
                                 echo $questionrow['instruction']."<br/>";
                             }
-                        
+                       
                       }
                        
                       while($resrow = sqlsrv_fetch_array($resrst)){
@@ -180,7 +186,7 @@ echo "<body>";
                           $skip = $resrow['skippattern'];
                            if($rid != ''){
                                     
-                                    $k = 70 - $twdeduct - strlen($rid) - strlen($r);
+                                    $k = 75 - $twdeduct - strlen($rid) - strlen($r)%75;
                                     $i = 0;
                                     while($i<$k){
                                              $r = $r.'.';
@@ -198,7 +204,7 @@ echo "<body>";
                       }
                 
                 if($questionrow['qtype']=='te'){
-                   
+                   $nomultiflag = false;
                         echo "</td></tr></table>";
                     } 
                     
@@ -211,5 +217,5 @@ echo "<body>";
     }
      sqlsrv_close($conn);
         
-echo "</html>";
+echo "</body></html>";
 ?>

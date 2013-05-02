@@ -22,6 +22,7 @@ if($_POST['action'] != '' || $_GET['action'] != '') {
                 $linum          = $_POST['num'];
 		$noJavaScript = 0;
 	}
+        
 }
 
 if ($action =="updatelinum"){
@@ -53,16 +54,18 @@ if ($action == "addToBasket"){
 	if ($noJavaScript == 1) {
 		header("Location:javascript:history.back(-1)");
 	} else {
-              
+                $sql="SELECT * FROM module WHERE moduleID = '$productID'";
+                $rst = sqlsrv_query($conn, $sql);
+                $modulerow = sqlsrv_fetch_array($rst);
+                $name=$modulerow['module'];
              
 		echo "<li id='productID_$x'>
 		<a  id='$productID' href='functions.php?action=deleteFromBasket&productID=$x' onClick='return false;'>
 			<img src='image/delete.png' id='$productID"."_$x'>
 		</a>
-		<a href='module.php?module=$productID'>".$productID."</a>
+		<a href='module.php?moduleID=$productID'>".$name."</a>
                   <img src='image/updown.png' width=20px style='position: absolute;right:50px;'>  
-                <a href='document/$productID.docx'><img src='image/download.png' width=25px style='position: absolute;right:20px;'></a>
-                        
+                  <a href='export.php?moduleID=$productID'><img src='image/download.png' width=25px style='position: absolute;right:20px;'></a>      
 		</li>";
             }
         }
@@ -95,17 +98,22 @@ function getBasket(){
 	
 	while($row =sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
 	{
+            
               
 		$productID=$row['itemid'];
-                 $x=$row['id'];
+                $x=$row['id'];
+                $sql="SELECT * FROM module WHERE moduleID = '$productID'";
+                $rst = sqlsrv_query($conn, $sql);
+                $modulerow = sqlsrv_fetch_array($rst);
+                $name=$modulerow['module'];
                 
 		echo "<li id='productID_$x'>
 		<a id='$productID' href='functions.php?action=deleteFromBasket&productID=$x' onClick='return false;'>
 			<img src='image/delete.png' id='$productID"."_$x'>
 		</a>
-		<a href='module.php?module=$productID'>".$productID."</a>
+		<a href='module.php?moduleID=$productID'>".$name."</a>
                     <img src='image/updown.png' width=20px style='position: absolute;right:50px;'>  
-                <a href='document/$productID.docx'><img src='image/download.png' width=25px style='position: absolute;right:20px;'></a>
+                <a href='export.php?moduleID=$productID'><img src='image/download.png' width=25px style='position: absolute;right:20px;'></a>
 		</li>";
 		
 	}

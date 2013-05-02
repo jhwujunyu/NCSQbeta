@@ -26,38 +26,42 @@ if(!isset($_SESSION['userid'])){
     <body class='b'>
         <div>
         <table border="0" align='center' class='gradient'>
-            <?php
-            $module = $_GET['module'];
-            ?>
+           
             <tr><td style="text-align: center"><img src="image\title.jpg"></td></tr>
         </table>
         
         <?php
-        echo "<table width='972' border='0' align='center'>";
-        echo "<tr><td width='100'>";
-        echo "<a href='export.php?module=$module' class='button'>Export</a></td>";
-        echo "<td width='100'>";
-        echo "<a href='document/$module.docx' class='button'>Download</a></td>";
-        echo "<td width='100'>";
-        //echo "<a href='search.php' class='button'>Back</a></td>";
-        echo "<a href='javascript:void(0);' class='button' onclick='goback()'>Back</a></td>";
-        echo "<td><a href='index.php?action=logout' class='button'>Logout</a></td></tr></table>";
-        echo "<table align='center'><tr><td class='input'>";
+        
+        $moduleID = $_GET['moduleID'];
         include "conn.php";
         
-        $sql = "select domain from domain where domainID in (select domainID from subdomain where subdomainID in (select subdomainID from module where module ='$module'))";
+        $sql = "select domain from domain where domainID in (select domainID from subdomain where subdomainID in (select subdomainID from module where moduleID ='$moduleID'))";
         $rst = sqlsrv_query($conn, $sql);
         $row = sqlsrv_fetch_array($rst);
         $domain=$row[0];
         
-        $sql = "select subdomain from subdomain where subdomainID in (select subdomainID from module where module ='$module')";
+        $sql = "select subdomain from subdomain where subdomainID in (select subdomainID from module where moduleID ='$moduleID')";
         $rst = sqlsrv_query($conn, $sql);
         $row = sqlsrv_fetch_array($rst);
         $subdomain=$row[0];
       
-        $sql = "select * from module where module='$module'";
+        $sql = "select * from module where moduleID='$moduleID'";
         $rst = sqlsrv_query($conn, $sql);
         $row = sqlsrv_fetch_array($rst);
+        $module=$row['module'];
+        
+        
+        echo "<table width='972' border='0' align='center'>";
+        echo "<tr><td width='100'>";
+        echo "<a href='export.php?moduleID=$moduleID' class='button'>Export</a></td>";
+        //echo "<td width='100'>";
+       // echo "<a href='document/{$module}.docx' class='button'>Download</a></td>";
+        echo "<td width='100'>";
+      
+        echo "<a href='javascript:void(0);' class='button' onclick='goback()'>Back</a></td>";
+        echo "<td><a href='index.php?action=logout' class='button'>Logout</a></td></tr></table>";
+        echo "<table align='center'><tr><td class='input'>";
+       
         
         echo "<p>";
         echo "<b>Domain</b>: ".$domain."<br/>";
@@ -67,17 +71,17 @@ if(!isset($_SESSION['userid'])){
         if($row['multisource']==0){
            $nomultiflag=1;
         echo "<b>Source</b>: ".$row['source']."<br/>";
-        echo "<b>Proprietary</b>:".$row['proprietary']."<br/>";
-        echo "<b>Scale</b>:".$row['scale']."<br/>"; 
+        echo "<b>Proprietary</b>: ".$row['proprietary']."<br/>";
+        echo "<b>Scale</b>: ".$row['scale']."<br/>"; 
         echo "<b>Core</b>: ".$row['core']."<br/>";
         echo "<b>Vanguard</b>: ".$row['vanguard']."<br/>";
         }
         
         
         echo "<table align='center'><tr><td class='input'>";
-     
+       
         echo "<center><font size='+2'><b>$module</b></font></center>";
-        $sql = "select * from question where moduleID in (select moduleID from module where module ='$module') order by orderID";
+        $sql = "select * from question where moduleID='$moduleID' order by orderID";
         $questionrst = sqlsrv_query($conn, $sql);
     
         $hflag=FALSE;
@@ -131,13 +135,13 @@ if(!isset($_SESSION['userid'])){
                         $questionline = $questionline.'.';
                         $i = $i+1;
                    }}
-                    /*if(!$nomultiflag){
+                    if(!$nomultiflag){
                                   $questionline = $questionline."<br/> Source: ".$questionrow['qsource']."<br/>";
                                   $questionline = $questionline. "Proprietary: ".$questionrow['proprietary']."<br/>";
                                   $questionline = $questionline."Scale: ".$questionrow['qscale']."<br/>"; 
                                   $questionline = $questionline."Core: ".$questionrow['core']."<br/>";
                                   $questionline = $questionline."Vanguard: ".$questionrow['vanguard']."<br/><br/>";      
-                            }*/
+                            }
                    
                     echo "<tr><td ><font size='-1'>$questionline</font></td>";
                     
@@ -180,6 +184,7 @@ if(!isset($_SESSION['userid'])){
                if($questionrow['qtype']=='ts'){
                     echo "<table border='1' style='border-collapse:collapse;' align='center'><tr><td valign='top'>";
                     $twdeduct=40;
+                    $nomultiflag = true;
                }  
                
                if($questionrow['qtype']=='t'){
@@ -220,7 +225,7 @@ if(!isset($_SESSION['userid'])){
                           $skip = $resrow['skippattern'];
                            if($rid != ''){
                                     
-                                    $k = 70 - $twdeduct - strlen($rid) - strlen($r);
+                                    $k = 75 - $twdeduct - strlen($rid) - strlen($r)%75;
                                     $i = 0;
                                     while($i<$k){
                                              $r = $r.'.';
@@ -238,7 +243,7 @@ if(!isset($_SESSION['userid'])){
                       }
                 
                 if($questionrow['qtype']=='te'){
-                   
+                   $nomultiflag = false;
                         echo "</td></tr></table>";
                     } 
                     
@@ -255,8 +260,7 @@ if(!isset($_SESSION['userid'])){
         echo "<table width='972' border='0' align='center'>";
         echo "<tr><td width='100'>";
         echo "<a href='export.php?module=$module' class='button'>Export</a></td>";
-        echo "<td width='100'>";
-        echo "<a href='document/$module.docx' class='button'>Download</a></td>";
+        
         echo "<td>";
         //echo "<a href='search.php' class='button'>Back</a></td></tr></table>";
         echo "<a href='javascript:void(0);' class='button' onclick='goback()'>Back</a></td>";

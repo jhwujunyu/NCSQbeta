@@ -96,11 +96,13 @@ if(!isset($_SESSION['userid'])){
         </form>
         <table align='center'>
             <tr><td height='50'></td></tr>
-            <tr>
-                <td width='25%'>
-                    <a href='search.php?domainID=PSY'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=PSY'>Psychosocial<br/></a>
-                    <?php
+            <?php
+            if($_SESSION['type'] == 1){
+            echo "<tr>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=PSY'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=PSY'>Psychosocial<br/></a>";
+                    
                     include('conn.php');
                     
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='PSY')";
@@ -127,12 +129,12 @@ if(!isset($_SESSION['userid'])){
                     else{
                         echo "<a href='search.php?domainID=PSY'>$count modules in $subcount $sub<br/></a>";
                     }
-                    ?>
-                </td>
-                <td width='25%'>
-                    <a href='search.php?domainID=DEM'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=DEM'>Demographic</a><br/>
-                    <?php
+                    
+                echo "</td>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=DEM'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=DEM'>Demographic</a><br/>";
+                    
                     include('conn.php');
                     
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='DEM')";
@@ -159,12 +161,12 @@ if(!isset($_SESSION['userid'])){
                     else{
                         echo "<a href='search.php?domainID=DEM'>$count modules in $subcount $sub<br/></a>";
                     }
-                    ?>
-                </td>
-                <td width='25%'>
-                    <a href='search.php?domainID=ENV'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=ENV'>Environmental</a><br/>
-                    <?php
+                    
+                echo "</td>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=ENV'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=ENV'>Environmental</a><br/>";
+                    
                     include('conn.php');
                     
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='ENV')";
@@ -191,12 +193,12 @@ if(!isset($_SESSION['userid'])){
                     else{
                         echo "<a href='search.php?domainID=ENV'>$count modules in $subcount $sub<br/></a>";
                     }
-                    ?>
-                </td>
-                <td width='25%'>
-                    <a href='search.php?domainID=NEW'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=NEW'>Newborn care and development</a><br/>
-                    <?php
+                    
+                echo "</td>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=NEW'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=NEW'>Newborn care and development</a><br/>";
+                   
                     include('conn.php');
                     
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='NEW')";
@@ -223,15 +225,15 @@ if(!isset($_SESSION['userid'])){
                     else{
                         echo "<a href='search.php?domainID=NEW'>$count modules in $subcount $sub<br/></a>";
                     }
-                    ?>
-                </td>
-            </tr>
-            <tr><td height='50' ></td></tr>
-            <tr>
-                <td width='25%'>
-                    <a href='search.php?domainID=CHI'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=CHI'>Child Medical</a><br/>
-                    <?php
+                    
+                echo "</td>";
+            echo "</tr>";
+            echo "<tr><td height='50' ></td></tr>";
+            echo "<tr>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=CHI'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=CHI'>Child Medical</a><br/>";
+                    
                     include('conn.php');
                     
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='CHI')";
@@ -258,12 +260,12 @@ if(!isset($_SESSION['userid'])){
                     else{
                         echo "<a href='search.php?domainID=CHI'>$count modules in $subcount $sub<br/></a>";
                     }
-                    ?>
-                </td>
-                <td width='25%'>
-                    <a href='search.php?domainID=MED'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=MED'>Medical</a><br/>
-                    <?php
+                    
+                echo "</td>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=MED'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=MED'>Medical</a><br/>";
+                    
                     include('conn.php');
                     
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='MED')";
@@ -290,12 +292,12 @@ if(!isset($_SESSION['userid'])){
                     else{
                         echo "<a href='search.php?domainID=MED'>$count modules in $subcount $sub<br/></a>";
                     }
-                    ?>
-                </td>
-                <td width='25%'>
-                    <a href='search.php?domainID=CHE'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=CHE'>Chemical</a><br/>
-                    <?php
+                    
+                echo "</td>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=CHE'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=CHE'>Chemical</a><br/>";
+                    
                     include('conn.php');
                     
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='CHE')";
@@ -322,13 +324,12 @@ if(!isset($_SESSION['userid'])){
                     else{
                         echo "<a href='search.php?domainID=CHE'>$count modules in $subcount $sub<br/></a>";
                     }
-                    sqlsrv_close($conn);
-                    ?>
-                </td>
-                <td width='25%'>
-                    <a href='search.php?domainID=HEA'><img src="image/folder.png" class='img1'/><br/></a>
-                    <a href='search.php?domainID=HEA'>Health/Lifestyle</a><br/>
-                    <?php
+                    
+                echo "</td>";
+                echo "<td width='25%'>";
+                    echo "<a href='search.php?domainID=HEA'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=HEA'>Health/Lifestyle</a><br/>";
+                    
                     include('conn.php');
                    
                     $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='HEA')";
@@ -356,9 +357,210 @@ if(!isset($_SESSION['userid'])){
                         echo "<a href='search.php?domainID=HEA'>$count modules in $subcount $sub<br/></a>";
                     }
                     sqlsrv_close($conn);
-                    ?>
-                </td>
-            </tr>           
+                    
+                echo "</td></tr>";
+            }
+            if($_SESSION['type'] == 0){
+            echo "<tr>";
+                echo "<td width='33%'>";
+                    echo "<a href='search.php?domainID=PSY'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=PSY'>Psychosocial<br/></a>";
+                    
+                    include('conn.php');
+                    
+                    $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='PSY')";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $count = $row['count'];
+                   
+                    $sql = "select count(*)count from subdomain where domainID='PSY' ";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $subcount = $row['count'];
+                    if($subcount <= 1){
+                        $sub = 'subdomain';
+                    }
+                    else{
+                        $sub = 'subdomains';
+                    }
+                    if($count=='0'){
+                        echo "<a href='search.php?domainID=PSY'>0 module in $subcount $sub<br/></a>";
+                    }
+                    else if($count == '1'){
+                        echo "<a href='search.php?domainID=PSY'>1 module in $subcount $sub<br/></a>";
+                    }
+                    else{
+                        echo "<a href='search.php?domainID=PSY'>$count modules in $subcount $sub<br/></a>";
+                    }
+                    
+                echo "</td>";
+                echo "<td width='33%'>";
+                    echo "<a href='search.php?domainID=DEM'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=DEM'>Demographic</a><br/>";
+                    
+                    include('conn.php');
+                    
+                    $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='DEM')";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $count = $row['count'];
+                    
+                    $sql = "select count(*)count from subdomain where domainID='DEM'";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $subcount = $row['count'];
+                    if($subcount <= 1){
+                        $sub = 'subdomain';
+                    }
+                    else{
+                        $sub = 'subdomains';
+                    }
+                    if($count=='0'){
+                        echo "<a href='search.php?domainID=DEM'>0 module in $subcount $sub<br/></a>";
+                    }
+                    else if($count == '1'){
+                        echo "<a href='search.php?domainID=DEM'>1 module in $subcount $sub<br/></a>";
+                    }
+                    else{
+                        echo "<a href='search.php?domainID=DEM'>$count modules in $subcount $sub<br/></a>";
+                    }
+                    
+                echo "</td>";
+                echo "<td width='33%'>";
+                    echo "<a href='search.php?domainID=ENV'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=ENV'>Environmental</a><br/>";
+                    
+                    include('conn.php');
+                    
+                    $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='ENV')";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $count = $row['count'];
+                    
+                    $sql = "select count(*)count from subdomain where domainID='ENV'";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $subcount = $row['count'];
+                    if($subcount <= 1){
+                        $sub = 'subdomain';
+                    }
+                    else{
+                        $sub = 'subdomains';
+                    }
+                    if($count=='0'){
+                        echo "<a href='search.php?domainID=ENV'>0 module in $subcount $sub<br/></a>";
+                    }
+                    else if($count == '1'){
+                        echo "<a href='search.php?domainID=ENV'>1 module in $subcount $sub<br/></a>";
+                    }
+                    else{
+                        echo "<a href='search.php?domainID=ENV'>$count modules in $subcount $sub<br/></a>";
+                    }
+                    
+                echo "</td>";
+               
+            echo "</tr>";
+            echo "<tr><td height='50' ></td></tr>";
+            echo "<tr>";
+                echo "<td width='33%'>";
+                    echo "<a href='search.php?domainID=MED'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=MED'>Medical</a><br/>";
+                    
+                    include('conn.php');
+                    
+                    $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='MED')";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $count = $row['count'];
+                    
+                    $sql = "select count(*)count from subdomain where domainID='MED'";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $subcount = $row['count'];
+                    if($subcount <= 1){
+                        $sub = 'subdomain';
+                    }
+                    else{
+                        $sub = 'subdomains';
+                    }
+                    if($count=='0'){
+                        echo "<a href='search.php?domainID=MED'>0 module in $subcount $sub<br/></a>";
+                    }
+                    else if($count == '1'){
+                        echo "<a href='search.php?domainID=MED'>1 module in $subcount $sub<br/></a>";
+                    }
+                    else{
+                        echo "<a href='search.php?domainID=MED'>$count modules in $subcount $sub<br/></a>";
+                    }
+                    
+                echo "</td>";
+                echo "<td width='33%'>";
+                    echo "<a href='search.php?domainID=CHE'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=CHE'>Chemical</a><br/>";
+                    
+                    include('conn.php');
+                    
+                    $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='CHE')";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $count = $row['count'];
+                    
+                    $sql = "select count(*)count from subdomain where domainID='CHE'";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $subcount = $row['count'];
+                    if($subcount <= 1){
+                        $sub = 'subdomain';
+                    }
+                    else{
+                        $sub = 'subdomains';
+                    }
+                    if($count=='0'){
+                        echo "<a href='search.php?domainID=CHE'>0 module in $subcount $sub<br/></a>";
+                    }
+                    else if($count == '1'){
+                        echo "<a href='search.php?domainID=CHE'>1 module in $subcount $sub<br/></a>";
+                    }
+                    else{
+                        echo "<a href='search.php?domainID=CHE'>$count modules in $subcount $sub<br/></a>";
+                    }
+                    
+                echo "</td>";
+                echo "<td width='33%'>";
+                    echo "<a href='search.php?domainID=HEA'><img src='image/folder.png' class='img1'/><br/></a>";
+                    echo "<a href='search.php?domainID=HEA'>Health/Lifestyle</a><br/>";
+                    
+                    include('conn.php');
+                   
+                    $sql = "select count(*)count from module where subdomainID in (select subdomainID from subdomain where domainID='HEA')";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $count = $row['count'];
+                    
+                    $sql = "select count(*)count from subdomain where domainID='HEA'";
+                    $rst = sqlsrv_query($conn, $sql);
+                    $row = sqlsrv_fetch_array($rst);
+                    $subcount = $row['count'];
+                    if($subcount <= 1){
+                        $sub = 'subdomain';
+                    }
+                    else{
+                        $sub = 'subdomains';
+                    }
+                    if($count=='0'){
+                        echo "<a href='search.php?domainID=HEA'>0 module in $subcount $sub<br/></a>";
+                    }
+                    else if($count == '1'){
+                        echo "<a href='search.php?domainID=HEA'>1 module in $subcount $sub<br/></a>";
+                    }
+                    else{
+                        echo "<a href='search.php?domainID=HEA'>$count modules in $subcount $sub<br/></a>";
+                    }
+                    sqlsrv_close($conn);
+                    
+                echo "</td></tr>";
+            }
+            ?>
         </table>
     </body>
 </html>

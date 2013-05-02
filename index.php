@@ -9,7 +9,7 @@ $login = 1;
 if(isset($_POST['userid'])){
     $userid = $_POST['userid'];
     $passwd = $_POST['passwd'];
-    $sql = "select password from account where username='$userid'";
+    $sql = "select * from account where username='$userid'";
     $rst = sqlsrv_query($conn, $sql);
     $row = sqlsrv_fetch_array($rst);
     if($userid==''){
@@ -18,6 +18,7 @@ if(isset($_POST['userid'])){
     else if($passwd == $row['password']){
         $_SESSION['userid'] = $userid;
         $_SESSION['passwd'] = $passwd;
+        $_SESSION['type'] = $row['type'];
         $login = 1;
         echo  "<META HTTP-EQUIV='Refresh' CONTENT='0; URL=domain.php'>";
     }
