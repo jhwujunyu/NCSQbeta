@@ -135,13 +135,13 @@ if(!isset($_SESSION['userid'])){
                         $questionline = $questionline.'.';
                         $i = $i+1;
                    }}
-                    if(!$nomultiflag){
+                   /* if(!$nomultiflag){
                                   $questionline = $questionline."<br/> Source: ".$questionrow['qsource']."<br/>";
                                   $questionline = $questionline. "Proprietary: ".$questionrow['proprietary']."<br/>";
                                   $questionline = $questionline."Scale: ".$questionrow['qscale']."<br/>"; 
                                   $questionline = $questionline."Core: ".$questionrow['core']."<br/>";
                                   $questionline = $questionline."Vanguard: ".$questionrow['vanguard']."<br/><br/>";      
-                            }
+                            }*/
                    
                     echo "<tr><td ><font size='-1'>$questionline</font></td>";
                     
@@ -259,7 +259,7 @@ if(!isset($_SESSION['userid'])){
         
         echo "<table width='972' border='0' align='center'>";
         echo "<tr><td width='100'>";
-        echo "<a href='export.php?module=$module' class='button'>Export</a></td>";
+        echo "<a href='export.php?moduleID=$moduleID' class='button'>Export</a></td>";
         
         echo "<td>";
         //echo "<a href='search.php' class='button'>Back</a></td></tr></table>";
