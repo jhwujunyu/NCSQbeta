@@ -35,6 +35,7 @@ sqlsrv_close($conn);
         <style type="text/css">
         body {
         font-family:Arial,Helvetica,sans-serif;font-size:100%;
+        margin: 0px;
         }
         fieldset{
             width: 320px;

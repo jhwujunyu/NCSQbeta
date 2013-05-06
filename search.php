@@ -15,6 +15,7 @@ $userid = $_SESSION['userid'];
         <style type="text/css" media="all">
         body {
         font-family:Arial,Helvetica,sans-serif;font-size:100%;
+        margin: 0px;
         } 
         table{
             width: 972px;

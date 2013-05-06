@@ -12,6 +12,7 @@ if(!isset($_SESSION['userid'])){
             .b{
             font-family: monospace;
             font-size: 12px;
+            margin: 0px;
         }
         </style>
         <title>Questionnaire</title>
